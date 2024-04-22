@@ -1,0 +1,56 @@
+Récupération du flux vidéo d'une caméra via son IP
+
+- Récupération et affichage du flux vidéo sur l'ordinateur du pirate
+- Récupération de l'écran (si il y a un écran) pour l'afficher avec le flux vidéo correspondant
+- Système multi-get screen/vidéo
+- Keylogger
+- Système de catégorisation de chaque flux (les trier)
+- Système de save des IP pour une connexion rapide
+- Système de recherche d'IP autour du pc principal
+
+
+
+
+
+Arborescence
+
+AdminPanel
+    - main.py
+    - Function
+        - Conn_BDD
+            - bdd_conn.py
+        - SRC
+            - Account_System
+                - login_verif.py
+                - register_verif.py
+                - user_data.py
+            - Functionality
+                - DDOS
+                    - ddos.py
+                - Get_Cam
+                    - hacker.py
+                    - target.py
+                - Key_Logger
+                    - keylogger.py
+                - Mail_System
+                    - sending_mail.py
+                - Network_Scan
+                    - network_scan.py
+                - Get_Screen
+                    - screen_connect.py
+                - Get_Microphone
+                    - get_microphone.py
+            - CSV
+                - load_data.py
+                - many_csv_function.py
+    - Images
+        - Admin Panel ID Card.png
+        - no_video_error.jpg
+    - Data
+        - in_use_account.csv
+    - Error
+        - display_error.py
+    - System
+        - get_system_info.py
+    - temp
+        - network_scanner_tkinter.py
