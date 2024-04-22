@@ -53,6 +53,7 @@ Les données sont sauvegardées et récupérées sur une base de données SQL, r
 - scapy.all -> ARP/Ether/srp
 
 ## Project Tree Structure
+```
 AdminPanel
 │   main.py
 │
@@ -112,7 +113,7 @@ AdminPanel
 │           │
 │           └── temp
 │               network_scanner_tkinter.py
-
+```
 
 ## Features
 - Gestion des utilisateurs
