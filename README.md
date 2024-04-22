@@ -54,7 +54,65 @@ Les données sont sauvegardées et récupérées sur une base de données SQL, r
 
 ## Project Tree Structure
 AdminPanel
- - Test
+│   main.py
+│
+├── Function
+│   │
+│   ├── Conn_BDD
+│   │       bdd_conn.py
+│   │
+│   └── SRC
+│       │
+│       ├── Account_System
+│       │   │
+│       │   ├── login_verif.py
+│       │   ├── register_verif.py
+│       │   └── user_data.py
+│       │   
+│       └── Functionality
+│           │
+│           ├── DDOS
+│           │   ddos.py
+│           │
+│           ├── Get_Cam
+│           │   hacker.py
+│           │   target.py
+│           │
+│           ├── Key_Logger
+│           │   keylogger.py
+│           │
+│           ├── Mail_System
+│           │   sending_mail.py
+│           │
+│           ├── Network_Scan
+│           │   network_scan.py
+│           │
+│           ├── Get_Screen
+│           │   screen_connect.py
+│           │
+│           ├── Get_Microphone
+│           │   get_microphone.py
+│           │
+│           ├── CSV
+│           │   load_data.py
+│           │   many_csv_function.py
+│           │
+│           ├── Images
+│           │   Admin Panel ID Card.png
+│           │   no_video_error.jpg
+│           │
+│           ├── Data
+│           │   in_use_account.csv
+│           │
+│           ├── Error
+│           │   display_error.py
+│           │
+│           ├── System
+│           │   get_system_info.py
+│           │
+│           └── temp
+│               network_scanner_tkinter.py
+
 
 ## Features
 - Gestion des utilisateurs
