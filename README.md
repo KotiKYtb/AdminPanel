@@ -51,68 +51,63 @@ Les données sont sauvegardées et récupérées sur une base de données SQL, r
 - pynput
 - pynput.keyboard -> Key/Listener
 - scapy.all -> ARP/Ether/srp
+- datetime
 
 ## Project Tree Structure
 ```
-AdminPanel
-│   main.py
+📁 AdminPanel
 │
-├── Function
+├── 📁 Data
+│     └── 📄 in_use_account.csv
+│
+├── 📁 Function
 │   │
-│   ├── Conn_BDD
-│   │       bdd_conn.py
+│   ├── 📁 Conn_BDD
+│   │     └── 📄 bdd_conn.py
 │   │
-│   └── SRC
+│   └── 📁 SRC
 │       │
-│       ├── Account_System
-│       │   │
-│       │   ├── login_verif.py
-│       │   ├── register_verif.py
-│       │   └── user_data.py
-│       │   
-│       └── Functionality
+│       ├── 📁 Account_System
+│       │   ├── 📄 login_verif.py
+│       │   ├── 📄 register_verif.py    
+│       │   ├── 📄 update_user_information.py
+│       │   ├── 📄 user_data.py
+│       │   └── 📄 verif_new_user.py
+│       │
+│       ├── 📁 CSV
+│       │   ├── 📄 many_csv_function.py
+│       │   └── 📄 temp_verif_data.csv
+│       │
+│       └── 📁 Functionality
 │           │
-│           ├── DDOS
-│           │   ddos.py
+│           ├── 📁 DDOS
+│           │   └── 📄 ddos.py
 │           │
-│           ├── Get_Cam
-│           │   hacker.py
-│           │   target.py
+│           ├── 📁 Get_Cam
+│           │   ├── 📄 get_cam_to_target.py
+│           │   └── 📄 open_cam_flux.py
 │           │
-│           ├── Key_Logger
-│           │   keylogger.py
+│           ├── 📁 Key_Logger
+│           │   └── 📄 keylogger.py
 │           │
-│           ├── Mail_System
-│           │   sending_mail.py
+│           ├── 📁 Mail_System
+│           │   └── 📄 sending_mail.py
 │           │
-│           ├── Network_Scan
-│           │   network_scan.py
+│           ├── 📁 Network_Scan
+│           │   └── 📄 network_scan.py
 │           │
-│           ├── Get_Screen
-│           │   screen_connect.py
-│           │
-│           ├── Get_Microphone
-│           │   get_microphone.py
-│           │
-│           ├── CSV
-│           │   load_data.py
-│           │   many_csv_function.py
-│           │
-│           ├── Images
-│           │   Admin Panel ID Card.png
-│           │   no_video_error.jpg
-│           │
-│           ├── Data
-│           │   in_use_account.csv
-│           │
-│           ├── Error
-│           │   display_error.py
-│           │
-│           ├── System
-│           │   get_system_info.py
-│           │
-│           └── temp
-│               network_scanner_tkinter.py
+│           └── 📁 System
+│               ├── 📄 get_system_info.py
+│               └── 📄 get_target_ip.py
+│
+├── 📁 Images
+│     ├── 🖼️ Admin Panel ID Card.png
+│     ├── 🖼️ Mail_preview.png
+│     ├── 🖼️ no_video_error.jpg
+│     └── 🖼️ signature_esaip_img.jpg
+│
+├── 📄 main.py
+└── 📄 Readme.md
 ```
 
 ## Features
